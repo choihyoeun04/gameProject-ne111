@@ -14,7 +14,7 @@ class GameState():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.state = 'main_game'  
 
-        #drawing
+        #drawing.
         pygame.image.load("intro.jpg")
         screen.blit(background,(0,0))
         screen.blit(ready_text,(screen_width/2 - 115, screen_height/2 - 33))
