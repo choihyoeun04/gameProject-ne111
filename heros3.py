@@ -38,7 +38,7 @@ class GameState():
     def state_manager(self):
         if self.state == 'intro':
             self.intro()
-            #
+            #ytgyj
         if self.state == 'main_game':
             self.main_game()
 
