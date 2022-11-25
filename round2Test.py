@@ -172,7 +172,9 @@ while run:
         man.left = True
         man.right = False
         man.standing = False
-    elif keys[pygame.K_RIGHT] and man.x < 500 - man.width - man.vel:
+        
+    #game boundary    
+    elif keys[pygame.K_RIGHT] and man.x < 1280 - man.width - man.vel:
         man.x += man.vel
         man.right = True
         man.left = False
