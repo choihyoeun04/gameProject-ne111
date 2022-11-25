@@ -179,6 +179,16 @@ while run:
         man.right = True
         man.left = False
         man.standing = False
+    elif keys[pygame.K_UP] and man.y > man.vel:
+        man.y -= man.vel
+        man.right = False
+        man.left = False
+        man.standing = True
+    elif keys[pygame.K_DOWN] and man.y < 720 - man.height - man.vel:
+        man.y += man.vel
+        man.right = False
+        man.left = False
+        man.standing = True
     else:
         man.standing = True
         man.walkCount = 0
