@@ -167,24 +167,24 @@ while run:
 
         shootLoop = 1
 
-    if keys[pygame.K_LEFT] and man.x > man.vel:
+    if keys[pygame.K_LEFT] and man.x > man.vel and man.x > 310:
         man.x -= man.vel
         man.left = True
         man.right = False
         man.standing = False
         
     #game boundary    
-    elif keys[pygame.K_RIGHT] and man.x < 1280 - man.width - man.vel:
+    elif keys[pygame.K_RIGHT] and man.x < 950 - man.width - man.vel:
         man.x += man.vel
         man.right = True
         man.left = False
         man.standing = False
-    elif keys[pygame.K_UP] and man.y > man.vel:
+    elif keys[pygame.K_UP] and man.y > man.vel and man.y > 280:
         man.y -= man.vel
         man.right = False
         man.left = False
         man.standing = True
-    elif keys[pygame.K_DOWN] and man.y < 720 - man.height - man.vel:
+    elif keys[pygame.K_DOWN] and man.y < 645 - man.height - man.vel:
         man.y += man.vel
         man.right = False
         man.left = False
