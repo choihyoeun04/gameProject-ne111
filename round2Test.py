@@ -115,9 +115,10 @@ class enemy(object):
 
     def hit(self): 
         if self.health > 0:
-            self.health -= 1
+            self.health -= 2
         else:
             self.visible = False
+            goblin = enemy(320, 550, 64, 64, 820)
         print('hit')
 
         
@@ -156,7 +157,7 @@ while run:
                 goblin.hit()
                 bullets.pop(bullets.index(bullet))
                 
-        if bullet.x < 500 and bullet.x > 0:
+        if bullet.x < 1000 and bullet.x > 300:
             bullet.x += bullet.vel
         else: 
             bullets.pop(bullets.index(bullet))
