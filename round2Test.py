@@ -26,7 +26,6 @@ class player(object):
         self.left = False
         self.right = False
         self.walkCount = 0
-        self.jumpCount = 10
         self.standing = True
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
 
@@ -66,8 +65,8 @@ class projectile(object):
 
 class enemy(object):
     #change enemy's picture
-    walkRight = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('R5.png'), pygame.image.load('E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
-    walkLeft = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('R5.png'), pygame.image.load('E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
+    walkRight = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
+    walkLeft = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
     
 
 
@@ -126,8 +125,8 @@ def redrawGameWindow():
 
 
 #mainloop
-man = player(200, 410, 64,64)
-goblin = enemy(100, 410, 64, 64, 450)
+man = player(400, 410, 64, 64)
+goblin = enemy(320, 550, 64, 64, 820)
 shootLoop = 0
 bullets = []
 run = True
