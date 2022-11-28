@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Nov 24 22:29:00 2022
+
+@author: skye
+"""
+
+import turtle
+import time
+import random
+
+delay = 0.1
+
+# score
+score = 0
+high_score = 0
+
+# the screen / map
+wn = turtle.Screen()
+wn.bgcolor("white")
+wn.setup(width=1280, height=720)
+wn.tracer(0) # turns off the screen updates
+
+# the blocks
+block = turtle.Turtle()
+block.speed(0)
+block.shape("circle")
+block.color("pink")
+block.penup()
+block.goto(0,100)
+
+segments = []
+
+block = turtle.Turtle()
+block.speed(0)
+block.shape("circle")
+block.color("black")
+block.penup()
+block.goto(0,100)
+
+segments = []
+
+# pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.shape("square")
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Score: 0  High Score: 0", align="center", font=("Courier", 24, "normal"))
