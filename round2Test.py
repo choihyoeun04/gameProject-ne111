@@ -142,7 +142,7 @@ while run:
     clock.tick(27)
 
     if shootLoop > 0:
-        shootLoop += 1
+        shootLoop += 1 
     if shootLoop > 3:
         shootLoop = 0
     
