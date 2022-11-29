@@ -1,4 +1,6 @@
 import pygame
+import sys
+
 pygame.init()
 
 win = pygame.display.set_mode((1280,720))
@@ -19,7 +21,11 @@ hitSound = pygame.mixer.Sound("hit.wav")
 
 music = pygame.mixer.music.load("round2music.mp3")
 
+
+
+pygame.mixer.init()
 pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.4)
 
 class player(object):
     def __init__(self,x,y,width,height):
@@ -91,19 +97,22 @@ class enemy(object):
 
     def draw(self,win):
         self.move()
-        if self.visible:
-            if self.walkCount + 1 >= 33:
-                self.walkCount = 0
+        for flower in enemies[:]:
+            if self.visible:
+                if self.walkCount + 1 >= 33:
+                    self.walkCount = 0
 
-            if self.vel > 0:
-                win.blit(self.walkRight[self.walkCount //3], (self.x, self.y))
-                self.walkCount += 1
-            else:
-                win.blit(self.walkLeft[self.walkCount //3], (self.x, self.y))
-                self.walkCount += 1
-            self.hitbox = (self.x + 17, self.y + 2, 31, 57)
-            pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10)) # NEW
-            pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10)) # NEW
+                if self.vel > 0:
+                    win.blit(self.walkRight[self.walkCount //3], (self.x, self.y))
+                    self.walkCount += 1
+                else:
+                    win.blit(self.walkLeft[self.walkCount //3], (self.x, self.y))
+                    self.walkCount += 1
+                self.hitbox = (self.x + 17, self.y + 2, 31, 57)
+                pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10)) # NEW
+                pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10)) # NEW
+            elif self.visible == False:
+                enemies.pop(enemies.index(flower))
 
     def move(self):
         if self.vel > 0:
@@ -121,11 +130,10 @@ class enemy(object):
 
     def hit(self):
         hitSound.play()
-        if self.health > 0:
+        if self.health > 2:
             self.health -= 2
         else:
             self.visible = False
-            goblin = enemy(320, 550, 64, 64, 820)
         print('hit')
 
         
@@ -146,6 +154,10 @@ goblin = enemy(320, 550, 64, 64, 820)
 shootLoop = 0
 bullets = []
 run = True
+enemies = []
+enemies.append(goblin)
+
+
 while run:
     clock.tick(27)
 
