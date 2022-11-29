@@ -113,6 +113,7 @@ class enemy(object):
                 pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10)) # NEW
             elif self.visible == False:
                 enemies.pop(enemies.index(flower))
+                self.kill(flower)
 
     def move(self):
         if self.vel > 0:
