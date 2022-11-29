@@ -14,6 +14,12 @@ char = pygame.image.load('standing.png')
 
 clock = pygame.time.Clock()
 
+bulletSound = pygame.mixer.Sound("bullet.mp3")
+hitSound = pygame.mixer.Sound("hit.wav")
+
+music = pygame.mixer.music.load("round2music.mp3")
+
+pygame.mixer.music.play(-1)
 
 class player(object):
     def __init__(self,x,y,width,height):
@@ -113,7 +119,8 @@ class enemy(object):
                 self.vel = self.vel * -1
                 self.walkCount = 0
 
-    def hit(self): 
+    def hit(self):
+        hitSound.play()
         if self.health > 0:
             self.health -= 2
         else:
@@ -165,6 +172,7 @@ while run:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_SPACE] and shootLoop == 0:
+        bulletSound.play()
         if man.left:
             facing = -1
         else:
