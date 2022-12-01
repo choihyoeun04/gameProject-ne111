@@ -223,7 +223,7 @@ while GO == 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             GO = 0
-    font = pygame.font.Font("cShootingGameFolder/onsolaz.ttf", 40)
+    font = pygame.font.Font("ShootingGameFolder/consolaz.ttf", 40)
     text = font.render("GAME OVER", True, (255,0,0))
     screen.blit(text, (80, round(size[1]/2-50)))
     pygame.display.flip()
