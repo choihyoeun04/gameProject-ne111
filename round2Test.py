@@ -3,44 +3,46 @@ import sys
 
 pygame.init()
 
+#Initialize game screen size
 win = pygame.display.set_mode((1280,720))
 
-pygame.display.set_caption("First Game")
+#Game name
+pygame.display.set_caption("Protect Gardener")
 
+#Animations for player - while walking
 walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png'), pygame.image.load('R5.png'), pygame.image.load('R6.png'), pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png')]
 walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load('L5.png'), pygame.image.load('L6.png'), pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png')]
 
-
+#Load backgrounds and musics
 bg = pygame.image.load('bg.png')
 char = pygame.image.load('standing.png')
-
-clock = pygame.time.Clock()
-
 bulletSound = pygame.mixer.Sound("bullet.mp3")
 hitSound = pygame.mixer.Sound("hit.wav")
-
 music = pygame.mixer.music.load("round2music.mp3")
 
+#Timing for game
+clock = pygame.time.Clock()
 
-
+#Settings for music
 pygame.mixer.init()
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.4)
 
+#Class that organized player's data
 class player(object):
+    #Initializing variables required for player
     def __init__(self,x,y,width,height):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.vel = 5
-        self.isJump = False
         self.left = False
         self.right = False
         self.walkCount = 0
         self.standing = True
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
-
+    #Animating player's moves
     def draw(self, win):
         if self.walkCount + 1 >= 27:
             self.walkCount = 0
@@ -61,7 +63,7 @@ class player(object):
         pygame.draw.rect(win, (255,0,0), self.hitbox,2)
                 
 
-
+#Class for bullets
 class projectile(object):
     def __init__(self,x,y,radius,color,facing):
         self.x = x
@@ -74,14 +76,14 @@ class projectile(object):
     def draw(self,win):
         pygame.draw.circle(win, self.color, (self.x,self.y), self.radius)
 
-
+#Class for enemy
 class enemy(object):
     #change enemy's picture
     walkRight = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
     walkLeft = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
     
 
-
+    #Enemy's default setting
     def __init__(self, x, y, width, height, end):
         self.x = x
         self.y = y
@@ -92,16 +94,17 @@ class enemy(object):
         self.walkCount = 0
         self.vel = 3
         self.hitbox = (self.x + 17, self.y + 2, 31, 57)
-        self.health = 10 
+        self.health = 15 
         self.visible = True 
 
+    #What enemy does in certain conditions
     def draw(self,win):
         self.move()
         for flower in enemies[:]:
-            if self.visible:
+            #While visible (not dead)
+            if self.visible == True:
                 if self.walkCount + 1 >= 33:
                     self.walkCount = 0
-
                 if self.vel > 0:
                     win.blit(self.walkRight[self.walkCount //3], (self.x, self.y))
                     self.walkCount += 1
@@ -111,11 +114,13 @@ class enemy(object):
                 self.hitbox = (self.x + 17, self.y + 2, 31, 57)
                 pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10)) # NEW
                 pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10)) # NEW
+            #when visible false(enemy died)
+#---------------------------------FIX HERE -----------------------------------------------------------------------------------
             elif self.visible == False:
-                #when visible false(몹이 뒤지면)
                 enemies.pop(enemies.index(flower))
                 self.kill(flower)
 
+    #Enemy's movement
     def move(self):
         if self.vel > 0:
             if self.x + self.vel < self.path[1]:
