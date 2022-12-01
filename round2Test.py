@@ -18,7 +18,10 @@ bg = pygame.image.load('bg.png')
 char = pygame.image.load('standing.png')
 bulletSound = pygame.mixer.Sound("bullet.mp3")
 hitSound = pygame.mixer.Sound("hit.wav")
-music = pygame.mixer.music.load("round2music.mp3")
+music = pygame.mixer.music.load("round2music.mp3")    
+letter = pygame.image.load("letter.png")
+help_text = pygame.image.load("help_text.png")
+
 
 #Timing for game
 clock = pygame.time.Clock()
@@ -112,8 +115,8 @@ class enemy(object):
                     win.blit(self.walkLeft[self.walkCount //3], (self.x, self.y))
                     self.walkCount += 1
                 self.hitbox = (self.x + 17, self.y + 2, 31, 57)
-                pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10)) # NEW
-                pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10)) # NEW
+                pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 75, 10)) # HEALTH Bars
+                pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 75 - (5 * (15 - self.health)), 10)) # Health bars
             #when visible false(enemy died)
 #---------------------------------FIX HERE -----------------------------------------------------------------------------------
             elif self.visible == False:
@@ -135,25 +138,29 @@ class enemy(object):
                 self.vel = self.vel * -1
                 self.walkCount = 0
 
+    #If enemy got hit
     def hit(self):
         hitSound.play()
         if self.health > 2:
             self.health -= 2
         else:
-            #hit 해서 체력이 다 닳았을때
+#-----------------------hit 해서 체력이 다 닳았을때------------------------------------------------------------------
             self.visible = False
         print('hit')
 
         
-
+#Update game's window
 def redrawGameWindow():
     win.blit(bg, (0,0))
     man.draw(win)
     goblin.draw(win)
+    win.blit(help_text, (0,0))
     for bullet in bullets:
         bullet.draw(win)
-    
+    if keys[pygame.K_h]:
+        win.blit(letter, (260,0))
     pygame.display.update()
+
 
 
 #mainloop
@@ -168,7 +175,7 @@ enemies.append(goblin)
 
 while run:
     clock.tick(27)
-
+    
     if shootLoop > 0:
         shootLoop += 1 
     if shootLoop > 3:
