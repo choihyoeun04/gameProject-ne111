@@ -112,6 +112,7 @@ class enemy(object):
                 pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 50, 10)) # NEW
                 pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 50 - (5 * (10 - self.health)), 10)) # NEW
             elif self.visible == False:
+                #when visible false(몹이 뒤지면)
                 enemies.pop(enemies.index(flower))
                 self.kill(flower)
 
@@ -134,6 +135,7 @@ class enemy(object):
         if self.health > 2:
             self.health -= 2
         else:
+            #hit 해서 체력이 다 닳았을때
             self.visible = False
         print('hit')
 
