@@ -10,11 +10,12 @@ pygame.init()
 size = [600, 500]
 screen = pygame.display.set_mode(size)
 
-title = "My Game"
+title = "Shooting Game"
 pygame.display.set_caption(title)
 
 # 3. the need for setting in the game
 clock = pygame.time.Clock()
+background = pygame.image.load("dungeonFloor.png")
 
 class obj:
     def __init__(self):
@@ -39,7 +40,7 @@ def crash(a, b):
     else : 
         return False
 ss = obj()
-ss.put_img("ShootingGameFolder/plane.png")
+ss.put_img("plane.png")
 ss.change_size(50,80)
 ss.x = round(size[0]/2- ss.sx/2)
 ss.y = size[1] -ss.sy - 15
@@ -62,7 +63,7 @@ GO = 0
 kill = 0
 loss = 0
 
-# 4-0. 게임 시작 대기 화면
+# 4-0. Start of the game
 SB = 0
 while SB == 0:
     clock.tick(60)
@@ -71,20 +72,20 @@ while SB == 0:
             if event.key == pygame.K_SPACE:
                 SB = 1
     screen.fill(black)
-    font = pygame.font.Font("ShootingGameFolder/consolaz.ttf", 15)
+    font = pygame.font.Font("consolaz.ttf", 15)
     text = font.render("PRESS SPACE KEY TO START THE GAME", True, (255,255,255))
     screen.blit(text, (180, round(size[1]/2-50)))    
     pygame.display.flip()
 
-# 4. 메인 이벤트
+# 4. Main event
 start_time = datetime.now()
 SB = 0
 while SB == 0:
 
-    # 4-1. FPS 설정
+    # 4-1. FPS setting
     clock.tick(60)
 
-    # 4-2. 각종 입력 감지
+    # 4-2. various movements
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             SB = 1
@@ -112,7 +113,7 @@ while SB == 0:
             elif event.key == pygame.K_SPACE:
                 space_go = False 
                 
-    # 4-3. 입력, 시간에 따른 변화
+    # 4-3. changes in time
     now_time = datetime.now()
     delta_time = round((now_time - start_time).total_seconds())
     
@@ -135,7 +136,7 @@ while SB == 0:
 
     if space_go == True and k % 6 == 0:
         mm = obj()
-        mm.put_img("ShootingGameFolder/bullet.jpg")
+        mm.put_img("bullet.jpg")
         mm.change_size(5,15)
         mm.x = round(ss.x + ss.sx/2 - mm.sx/2)
         mm.y = ss.y - mm.sy - 10
@@ -154,7 +155,7 @@ while SB == 0:
         
     if random.random() > 0.98: 
         aa = obj()
-        aa.put_img("ShootingGameFolder/ailen.png")
+        aa.put_img(random.choice(["ailen.png", "ailen2.png"]))
         aa.change_size(40,40)
         aa.x = random.randrange(0, size[0]-aa.sx-round(ss.sx/2))
         aa.y = 10
@@ -199,31 +200,35 @@ while SB == 0:
             SB = 1
             GO = 1
     
-    # 4-4. 그리기
-    screen.fill(black)
+    # 4-4. drawing
+    screen.blit(background, (0,0))
     ss.show()
     for m in m_list:
         m.show()
     for a in a_list:
         a.show()
         
-    font = pygame.font.Font("ShootingGameFolder/consolaz.ttf", 20)
+    font = pygame.font.Font("consolaz.ttf", 20)
     text_kill = font.render("killed : {} loss : {}".format(kill, loss), True, (255,255,0))
     screen.blit(text_kill, (10, 5))
     
     text_time = font.render("time : {}".format(delta_time), True, (255,255,255))
     screen.blit(text_time, (size[0]-100, 5))
     
-    # 4-5. 업데이트
+    # 4-5. update
     pygame.display.flip()
 
-# 5. 게임 종료
+# 5. game end.
 while GO == 1:
     clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             GO = 0
+<<<<<<< HEAD
     font = pygame.font.Font("ShootingGameFolder/consolaz.ttf", 40)
+=======
+    font = pygame.font.Font("consolaz.ttf", 40)
+>>>>>>> 45d9d90e6a44be292c026e5fcc79fe93b621fce4
     text = font.render("GAME OVER", True, (255,0,0))
     screen.blit(text, (80, round(size[1]/2-50)))
     pygame.display.flip()
