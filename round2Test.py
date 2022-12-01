@@ -144,6 +144,14 @@ class enemy(object):
             self.visible = False
         print('hit')
 
+def crash(a, b):
+    if (a.x-b.sx <= b.x) and (b.x <= a.x+a.sx):
+        if (a.y-b.sy <= b.y) and (b.y <= a.y+a.sy):
+            return True
+        else:
+            return False
+    else : 
+        return False
         
 
 def redrawGameWindow():
@@ -188,6 +196,10 @@ while run:
             bullet.x += bullet.vel
         else: 
             bullets.pop(bullets.index(bullet))
+
+    if crash(man.x == goblin.x, man.y == goblin.y) == True:
+        run = False
+
 
     keys = pygame.key.get_pressed()
 
