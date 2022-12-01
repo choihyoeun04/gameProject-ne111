@@ -39,7 +39,7 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self.vel = 5
+        self.vel = 7.5
         self.left = False
         self.right = False
         self.walkCount = 0
@@ -95,7 +95,7 @@ class enemy(object):
         self.end = end
         self.path = [self.x, self.end]
         self.walkCount = 0
-        self.vel = 3
+        self.vel = 6
         self.hitbox = (self.x + 17, self.y + 2, 31, 57)
         self.health = 15 
         self.visible = True 
