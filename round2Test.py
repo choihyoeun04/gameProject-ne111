@@ -1,5 +1,7 @@
 import pygame
 import sys
+import time
+from datetime import datetime
 
 pygame.init()
 
@@ -22,7 +24,7 @@ music = pygame.mixer.music.load("round2music.mp3")
 letter = pygame.image.load("letter.png")
 help_text = pygame.image.load("help_text.png")
 phase_text = pygame.image.load("phaseLeft.png")
-
+font = pygame.font.Font("consolaz.ttf", 15)
 
 #Timing for game
 clock = pygame.time.Clock()
@@ -148,7 +150,11 @@ class enemy(object):
             self.visible = False
             self.deathcount += 1
             pygame.time.delay(1000)
-            if self.deathcount ==1:
+            if self.deathcount ==0:
+                text = font.render("2", True, (255,255,255))
+            elif self.deathcount ==1:
+                text = font.render("3", True, (255,255,255))
+                win.blit(text, (180, 0))
                 self.health = 20
                 self.maxhealth = 20
                 self.y = 450
@@ -177,7 +183,7 @@ def redrawGameWindow():
     man.draw(win)
     goblin.draw(win)
     win.blit(help_text, (0,0))
-    win.blit(phase_text, (800,0))
+    win.blit(phase_text, (850,0))
     for bullet in bullets:
         bullet.draw(win)
     if keys[pygame.K_h]:
