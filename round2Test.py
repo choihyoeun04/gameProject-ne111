@@ -21,6 +21,7 @@ hitSound = pygame.mixer.Sound("hit.wav")
 music = pygame.mixer.music.load("round2music.mp3")    
 letter = pygame.image.load("letter.png")
 help_text = pygame.image.load("help_text.png")
+phase_text = pygame.image.load("phaseLeft.png")
 
 
 #Timing for game
@@ -97,8 +98,10 @@ class enemy(object):
         self.walkCount = 0
         self.vel = 6
         self.hitbox = (self.x + 17, self.y + 2, 31, 57)
+        self.maxhealth = 15
         self.health = 15 
-        self.visible = True 
+        self.visible = True
+        self.deathcount = 0
 
     #What enemy does in certain conditions
     def draw(self,win):
@@ -115,13 +118,10 @@ class enemy(object):
                     win.blit(self.walkLeft[self.walkCount //3], (self.x, self.y))
                     self.walkCount += 1
                 self.hitbox = (self.x + 17, self.y + 2, 31, 57)
-                pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, 75, 10)) # HEALTH Bars
-                pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, 75 - (5 * (15 - self.health)), 10)) # Health bars
+                pygame.draw.rect(win, (255,0,0), (self.hitbox[0], self.hitbox[1] - 20, (5*self.maxhealth), 10)) # HEALTH Bars
+                pygame.draw.rect(win, (0,128,0), (self.hitbox[0], self.hitbox[1] - 20, ((5*self.maxhealth)) - (5 * (self.maxhealth - self.health)), 10)) # Health bars
             #when visible false(enemy died)
 #---------------------------------FIX HERE -----------------------------------------------------------------------------------
-            elif self.visible == False:
-                enemies.pop(enemies.index(flower))
-                self.kill(flower)
 
     #Enemy's movement
     def move(self):
@@ -146,6 +146,29 @@ class enemy(object):
         else:
 #-----------------------hit 해서 체력이 다 닳았을때------------------------------------------------------------------
             self.visible = False
+            self.deathcount += 1
+            pygame.time.delay(1000)
+            if self.deathcount ==1:
+                self.health = 20
+                self.maxhealth = 20
+                self.y = 450
+                self.vel = 8
+                self.visible = True
+            elif self.deathcount == 2:
+                self.health = 25
+                self.maxhealth = 25
+                self.y = 400
+                self.vel = 10
+                self.visible = True
+            elif self.deathcount == 3:
+                self.health = 30
+                self.maxhealth = 30
+                self.y = 450
+                self.vel = 12
+                self.visible = True
+            else:
+                self.visible = False
+
         print('hit')
         
 #Update game's window
@@ -154,6 +177,7 @@ def redrawGameWindow():
     man.draw(win)
     goblin.draw(win)
     win.blit(help_text, (0,0))
+    win.blit(phase_text, (800,0))
     for bullet in bullets:
         bullet.draw(win)
     if keys[pygame.K_h]:
