@@ -19,7 +19,6 @@ walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.ima
 
 # Load backgrounds and musics
 bg = pygame.image.load('bg.png')
-char = pygame.image.load('standing.png')
 bulletSound = pygame.mixer.Sound("bullet.mp3")
 hitSound = pygame.mixer.Sound("hit.wav")
 music = pygame.mixer.music.load("round2music.mp3")
@@ -229,7 +228,7 @@ def redrawGameWindow():
         bullet.draw(win)
     if keys[pygame.K_h]:
         win.blit(letter, (260, 0))
-    if goblin.phaseLeft == 3:
+    if goblin.phaseLeft == 0:
         white = (255,255,255)
         win.fill(white)
         win.blit(clearImage, (0,0))
