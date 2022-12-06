@@ -194,14 +194,16 @@ class enemy(object):
 # define a function for
 # collision detection
 def crash():
-    global deathCounyPlayer
+    global deathCountPlayer
+    global crashCheck
 # check conditions
     if man.y < (goblin.y + 10):
         if ((man.x > goblin.x and man.x < (goblin.x + 10)) or ((man.x + 10) > goblin.x and (man.x + 10) < (goblin.x + 10))):
             print('aw')
             man.x = 820
             man.y = 300
-            deathCountPlayer += 1
+            deathCountPlayer = deathCountPlayer + 1
+            print(deathCountPlayer)
             crashCheck = True
         else:
             crashCheck = False
@@ -243,7 +245,7 @@ enemies = []
 enemies.append(goblin)
 crashCheck = False
 deathCountPlayer = 0
-displayDeath = font.render("Desth Count : {}".format(deathCountPlayer), True, (0,0,0))
+displayDeath = font.render("Death Count : {}".format(deathCountPlayer), True, (0,0,0))
 
 start_time = datetime.now()
 while run:
@@ -316,7 +318,6 @@ while run:
         man.walkCount = 0
 
     if crashCheck == True:
-        
 
         #pygame.time.delay(1000)
         crashCheck = False  
