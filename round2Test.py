@@ -197,14 +197,17 @@ def crash():
     global deathCountPlayer
     global crashCheck
 # check conditions
-    if man.y < (goblin.y + 10):
-        if ((man.x > goblin.x and man.x < (goblin.x + 10)) or ((man.x + 10) > goblin.x and (man.x + 10) < (goblin.x + 10))):
-            print('aw')
-            man.x = 820
-            man.y = 300
-            deathCountPlayer = deathCountPlayer + 1
-            print(deathCountPlayer)
-            crashCheck = True
+    if (man.y < (goblin.y + 20)):
+        if man.y > (goblin.y):
+
+            if ((man.x > goblin.x and man.x < (goblin.x + 10)) or ((man.x + 10) > goblin.x and (man.x + 10) < (goblin.x + 10))):
+                print('aw')
+                man.x = 820
+                man.y = 300
+                deathCountPlayer = deathCountPlayer + 1
+                print(deathCountPlayer)
+                pygame.time.delay(500)
+                crashCheck = True
         else:
             crashCheck = False
     else:
@@ -214,6 +217,7 @@ def crash():
 
 # Update game's window
 def redrawGameWindow():
+    displayDeath = font.render("Death Count : {}".format(deathCountPlayer), True, (0,0,0))
     win.blit(bg, (0, 0))
     man.draw(win)
     goblin.draw(win)
