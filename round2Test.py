@@ -193,8 +193,9 @@ def redrawGameWindow():
     if keys[pygame.K_h]:
         win.blit(letter, (260,0))
     pygame.display.update()
-def timeManagement():
     
+def timeManagement():
+    #시간 1초 지나면 그에맞게 screen에 표시하기 이거 그냥 검색하면 나올것
     win.blit(delta_time)
 
 
