@@ -6,7 +6,8 @@ from datetime import datetime
 pygame.init()
 
 #Initialize game screen size
-win = pygame.display.set_mode((1280,720))
+size = [1280,720]
+win = pygame.display.set_mode(size)
 
 #Game name
 pygame.display.set_caption("Protect Gardener")
@@ -174,6 +175,9 @@ class enemy(object):
                 self.visible = True
             else:
                 self.visible = False
+                font = pygame.font.Font("consolaz.ttf", 20)
+                text_time = font.render("time : {}".format(delta_time), True, (0,0,0))
+                win.blit(text_time, (size[0]-100, 5))
 
         print('hit')
         
@@ -201,7 +205,7 @@ run = True
 enemies = []
 enemies.append(goblin)
 
-
+start_time = datetime.now()
 while run:
     clock.tick(27)
     
@@ -225,6 +229,8 @@ while run:
         else: 
             bullets.pop(bullets.index(bullet))
 
+    now_time = datetime.now()
+    delta_time = round((now_time - start_time).total_seconds())
 
     keys = pygame.key.get_pressed()
 
