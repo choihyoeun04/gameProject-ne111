@@ -26,7 +26,7 @@ music = pygame.mixer.music.load("round2music.mp3")
 letter = pygame.image.load("letter.png")
 help_text = pygame.image.load("help_text.png")
 phase_text = pygame.image.load("phaseLeft.png")
-font = pygame.font.Font("consolaz.ttf", 15)
+font = pygame.font.Font("consolaz.ttf", 30)
 
 # Timing for game
 clock = pygame.time.Clock()
@@ -199,6 +199,7 @@ def redrawGameWindow():
     goblin.draw(win)
     win.blit(help_text, (0, 0))
     win.blit(phase_text, (850, 0))
+    win.blit(text_time, (600, 0))
     for bullet in bullets:
         bullet.draw(win)
     if keys[pygame.K_h]:
@@ -246,6 +247,8 @@ while run:
 
     now_time = datetime.now()
     delta_time = round((now_time - start_time).total_seconds())
+    text_time = font.render("time : {}".format(delta_time), True, (0,0,0))
+    #win.blit(text_time, (100, 5))
 
     keys = pygame.key.get_pressed()
 
