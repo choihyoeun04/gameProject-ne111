@@ -194,7 +194,7 @@ def redrawGameWindow():
         win.blit(letter, (260,0))
     pygame.display.update()
 def timeManagement():
-
+    win.blit(delta_time)
 
 
 #mainloop
