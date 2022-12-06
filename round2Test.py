@@ -190,9 +190,22 @@ class enemy(object):
 
         print('hit')
 
+# define a function for
+# collision detection
+def crash():
+
+# check conditions
+    if man.y < (goblin.y + 50):
+        if ((man.x > goblin.x and man.x < (goblin.x + 50)) or ((man.x + 50) > goblin.y and (man.x + 50) < (goblin.y + 50))):
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+
 # Update game's window
-
-
 def redrawGameWindow():
     win.blit(bg, (0, 0))
     man.draw(win)
@@ -291,10 +304,11 @@ while run:
         man.standing = True
         man.walkCount = 0
 
-    if man.x == goblin.x and man.y == goblin.y:
-        print('shit')
-        pygame.time.delay(1000)
+    if crash() == False:
+        print("aw")
+
     # timeManagement()
     redrawGameWindow()
+
 
 pygame.quit()
