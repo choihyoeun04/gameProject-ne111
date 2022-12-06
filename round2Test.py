@@ -278,7 +278,9 @@ while run:
         man.walkCount = 0
         
     
-            
+    if man.x == goblin.x and man.y == goblin.y:
+        print('shit')
+        pygame.time.delay(1000)
     redrawGameWindow()
 
 pygame.quit()
