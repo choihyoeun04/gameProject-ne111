@@ -114,6 +114,7 @@ class enemy(object):
         self.health = 15
         self.visible = True
         self.deathcount = 0
+        self.phaseLeft = 4
 
     # What enemy does in certain conditions
     def draw(self, win):
@@ -166,6 +167,7 @@ class enemy(object):
             pygame.time.delay(1000)
             if self.deathcount == 0:
                 text = font.render("2", True, (255,255,255))
+                
             elif self.deathcount == 1:
                 text = font.render("3", True, (255,255,255))
                 win.blit(text, (180, 0))
@@ -174,6 +176,7 @@ class enemy(object):
                 self.y = 450
                 self.vel = 8
                 self.visible = True
+                self.phaseLeft = 3
             elif self.deathcount == 2:
                 self.health = 25
                 self.maxhealth = 25
@@ -217,6 +220,7 @@ def crash():
 # Update game's window
 def redrawGameWindow():
     displayDeath = font.render("Death Count : {}".format(deathCountPlayer), True, (0,0,0))
+    displayPhase = font.render("{}".format(goblin.phaseLeft), True, (0,0,0))
     win.blit(bg, (0, 0))
     man.draw(win)
     goblin.draw(win)
@@ -224,6 +228,7 @@ def redrawGameWindow():
     win.blit(phase_text, (850, 0))
     win.blit(text_time, (600, 0))
     win.blit(displayDeath, (700, 50))
+    win.blit(displayPhase, (1050, 20))
     for bullet in bullets:
         bullet.draw(win)
     if keys[pygame.K_h]:
