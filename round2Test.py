@@ -197,17 +197,16 @@ def crash():
     global deathCountPlayer
     global crashCheck
 # check conditions
-    if (man.y < (goblin.y + 20)):
-        if man.y > (goblin.y):
-
-            if ((man.x > goblin.x and man.x < (goblin.x + 10)) or ((man.x + 10) > goblin.x and (man.x + 10) < (goblin.x + 10))):
-                print('aw')
-                man.x = 820
-                man.y = 300
-                deathCountPlayer = deathCountPlayer + 1
-                print(deathCountPlayer)
-                pygame.time.delay(500)
-                crashCheck = True
+    #if (man.y < (goblin.y + 20)):
+    if ((man.y > goblin.y and man.y < (goblin.y + 30)) or ((man.y + 30) > goblin.y and (man.y + 30) < (goblin.y + 30))):
+        if ((man.x > goblin.x and man.x < (goblin.x + 30)) or ((man.x + 30) > goblin.x and (man.x + 30) < (goblin.x + 30))):
+            print('aw')
+            man.x = 820
+            man.y = 300
+            deathCountPlayer = deathCountPlayer + 1
+            print(deathCountPlayer)
+            pygame.time.delay(500)
+            crashCheck = True
         else:
             crashCheck = False
     else:
@@ -224,7 +223,7 @@ def redrawGameWindow():
     win.blit(help_text, (0, 0))
     win.blit(phase_text, (850, 0))
     win.blit(text_time, (600, 0))
-    win.blit(displayDeath, (700, 100))
+    win.blit(displayDeath, (700, 50))
     for bullet in bullets:
         bullet.draw(win)
     if keys[pygame.K_h]:
