@@ -163,11 +163,8 @@ class enemy(object):
             self.deathcount += 1
             pygame.time.delay(1000)
             if self.deathcount == 0:
-                text = font.render("2", True, (255,255,255))
-                
+                self.phaseLeft = 4
             elif self.deathcount == 1:
-                text = font.render("3", True, (255,255,255))
-                win.blit(text, (180, 0))
                 self.health = 20
                 self.maxhealth = 20
                 self.y = 450
@@ -180,14 +177,17 @@ class enemy(object):
                 self.y = 400
                 self.vel = 10
                 self.visible = True
+                self.phaseLeft = 2
             elif self.deathcount == 3:
                 self.health = 30
                 self.maxhealth = 30
                 self.y = 450
                 self.vel = 12
                 self.visible = True
+                self.phaseLeft = 1
             else:
                 self.visible = False
+                self.phaseLeft = 0
 
 
 # define a function for
@@ -227,6 +227,10 @@ def redrawGameWindow():
         bullet.draw(win)
     if keys[pygame.K_h]:
         win.blit(letter, (260, 0))
+    if goblin.phaseLeft == 0:
+        white = (255,255,255)
+        win.fill(white)
+        pygame.display.flip()
     pygame.display.update()
 
 
