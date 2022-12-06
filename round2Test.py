@@ -193,7 +193,6 @@ def redrawGameWindow():
     if keys[pygame.K_h]:
         win.blit(letter, (260,0))
     pygame.display.update()
-def timeManagement():
 
 
 
@@ -229,9 +228,13 @@ while run:
             bullet.x += bullet.vel
         else: 
             bullets.pop(bullets.index(bullet))
+    
+    font = pygame.font.Font("consolaz.ttf", 20)
 
     now_time = datetime.now()
     delta_time = round((now_time - start_time).total_seconds())
+    text_time = font.render("time : {}".format(delta_time), True, (0,0,0))
+    win.blit(text_time, (size[0]-100, 5))
 
     keys = pygame.key.get_pressed()
 
@@ -276,7 +279,5 @@ while run:
     
             
     redrawGameWindow()
-    timeManagement()
-
 
 pygame.quit()
