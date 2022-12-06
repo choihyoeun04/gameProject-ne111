@@ -27,7 +27,7 @@ letter = pygame.image.load("letter.png")
 help_text = pygame.image.load("help_text.png")
 phase_text = pygame.image.load("phaseLeft.png")
 font = pygame.font.Font("consolaz.ttf", 30)
-deathImage = pygame.image.load('deathImage.png')
+clearImage = pygame.image.load('clearImage.png')
 
 # Timing for game
 clock = pygame.time.Clock()
@@ -188,6 +188,8 @@ class enemy(object):
             else:
                 self.visible = False
                 self.phaseLeft = 0
+                pygame.time.delay(5000)
+                
 
 
 # define a function for
@@ -227,15 +229,13 @@ def redrawGameWindow():
         bullet.draw(win)
     if keys[pygame.K_h]:
         win.blit(letter, (260, 0))
-    if goblin.phaseLeft == 0:
+    if goblin.phaseLeft == 3:
         white = (255,255,255)
         win.fill(white)
-        final_time = text_time
-        win.blit(final_time, (600, 0))
-        win.blit(displayDeath, (600, 50))
-        #win.blit()
-        pygame.display.flip()
+        win.blit(clearImage, (0,0))
+        
     pygame.display.update()
+
 
 
 # mainloop
