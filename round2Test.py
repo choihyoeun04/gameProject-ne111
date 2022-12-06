@@ -230,6 +230,10 @@ def redrawGameWindow():
     if goblin.phaseLeft == 0:
         white = (255,255,255)
         win.fill(white)
+        final_time = text_time
+        win.blit(final_time, (600, 0))
+        win.blit(displayDeath, (600, 50))
+        #win.blit()
         pygame.display.flip()
     pygame.display.update()
 
