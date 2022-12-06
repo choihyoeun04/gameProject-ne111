@@ -219,16 +219,16 @@ def crash():
 
 # Update game's window
 def redrawGameWindow():
-    displayDeath = font.render("Death Count : {}".format(deathCountPlayer), True, (0,0,0))
-    displayPhase = font.render("{}".format(goblin.phaseLeft), True, (0,0,0))
+    displayDeath = font.render("Death Count : {}".format(deathCountPlayer), True, (255,0,0))
+    displayPhase = font.render("{}".format(goblin.phaseLeft), True, (255,0,0))
     win.blit(bg, (0, 0))
     man.draw(win)
     goblin.draw(win)
     win.blit(help_text, (0, 0))
     win.blit(phase_text, (850, 0))
     win.blit(text_time, (600, 0))
-    win.blit(displayDeath, (700, 50))
-    win.blit(displayPhase, (1050, 20))
+    win.blit(displayDeath, (850, 50))
+    win.blit(displayPhase, (1090, 18))
     for bullet in bullets:
         bullet.draw(win)
     if keys[pygame.K_h]:
