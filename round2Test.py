@@ -27,6 +27,7 @@ letter = pygame.image.load("letter.png")
 help_text = pygame.image.load("help_text.png")
 phase_text = pygame.image.load("phaseLeft.png")
 font = pygame.font.Font("consolaz.ttf", 30)
+deathImage = pygame.image.load('deathImage.png')
 
 # Timing for game
 clock = pygame.time.Clock()
@@ -193,15 +194,19 @@ class enemy(object):
 # define a function for
 # collision detection
 def crash():
-
+    global deathCounyPlayer
 # check conditions
-    if man.y < (goblin.y + 50):
-        if ((man.x > goblin.x and man.x < (goblin.x + 50)) or ((man.x + 50) > goblin.y and (man.x + 50) < (goblin.y + 50))):
-            return True
+    if man.y < (goblin.y + 10):
+        if ((man.x > goblin.x and man.x < (goblin.x + 10)) or ((man.x + 10) > goblin.x and (man.x + 10) < (goblin.x + 10))):
+            print('aw')
+            man.x = 820
+            man.y = 300
+            deathCountPlayer += 1
+            crashCheck = True
         else:
-            return False
+            crashCheck = False
     else:
-        return False
+        crashCheck = False
 
 
 
@@ -213,10 +218,13 @@ def redrawGameWindow():
     win.blit(help_text, (0, 0))
     win.blit(phase_text, (850, 0))
     win.blit(text_time, (600, 0))
+    win.blit(displayDeath, (700, 100))
     for bullet in bullets:
         bullet.draw(win)
     if keys[pygame.K_h]:
         win.blit(letter, (260, 0))
+    if crashCheck == False:
+        print('shh')
     pygame.display.update()
 
 # def timeManagement():
@@ -233,6 +241,9 @@ bullets = []
 run = True
 enemies = []
 enemies.append(goblin)
+crashCheck = False
+deathCountPlayer = 0
+displayDeath = font.render("Desth Count : {}".format(deathCountPlayer), True, (0,0,0))
 
 start_time = datetime.now()
 while run:
@@ -304,11 +315,16 @@ while run:
         man.standing = True
         man.walkCount = 0
 
-    if crash() == False:
-        print("aw")
+    if crashCheck == True:
+        
+
+        #pygame.time.delay(1000)
+        crashCheck = False  
 
     # timeManagement()
+    crash()
     redrawGameWindow()
+
 
 
 pygame.quit()
