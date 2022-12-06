@@ -194,6 +194,7 @@ def redrawGameWindow():
         win.blit(letter, (260,0))
     pygame.display.update()
 def timeManagement():
+    
     win.blit(delta_time)
 
 
@@ -281,6 +282,7 @@ while run:
     if man.x == goblin.x and man.y == goblin.y:
         print('shit')
         pygame.time.delay(1000)
+    timeManagement()
     redrawGameWindow()
 
 pygame.quit()
