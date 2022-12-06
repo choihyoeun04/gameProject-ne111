@@ -225,8 +225,6 @@ def redrawGameWindow():
         bullet.draw(win)
     if keys[pygame.K_h]:
         win.blit(letter, (260, 0))
-    if crashCheck == False:
-        print('shh')
     pygame.display.update()
 
 # def timeManagement():
@@ -245,7 +243,7 @@ enemies = []
 enemies.append(goblin)
 crashCheck = False
 deathCountPlayer = 0
-displayDeath = font.render("Death Count : {}".format(deathCountPlayer), True, (0,0,0))
+
 
 start_time = datetime.now()
 while run:
