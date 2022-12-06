@@ -193,6 +193,7 @@ def redrawGameWindow():
     if keys[pygame.K_h]:
         win.blit(letter, (260,0))
     pygame.display.update()
+def timeManagement():
 
 
 
@@ -275,5 +276,7 @@ while run:
     
             
     redrawGameWindow()
+    timeManagement()
+
 
 pygame.quit()
