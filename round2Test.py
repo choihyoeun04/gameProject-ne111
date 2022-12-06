@@ -88,9 +88,8 @@ class projectile(object):
     def draw(self, win):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
 
+
 # Class for enemy
-
-
 class enemy(object):
     # change enemy's picture
     walkRight = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load(
@@ -137,8 +136,7 @@ class enemy(object):
                     win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, (5*self.maxhealth), 10))  # HEALTH Bars
                 pygame.draw.rect(win, (0, 128, 0), (self.hitbox[0], self.hitbox[1] - 20, ((
                     5*self.maxhealth)) - (5 * (self.maxhealth - self.health)), 10))  # Health bars
-            # when visible false(enemy died)
-# ---------------------------------FIX HERE -----------------------------------------------------------------------------------
+
 
     # Enemy's movement
     def move(self):
@@ -161,7 +159,6 @@ class enemy(object):
         if self.health > 2:
             self.health -= 2
         else:
-            # -----------------------hit 해서 체력이 다 닳았을때------------------------------------------------------------------
             self.visible = False
             self.deathcount += 1
             pygame.time.delay(1000)
@@ -192,7 +189,6 @@ class enemy(object):
             else:
                 self.visible = False
 
-        print('hit')
 
 # define a function for
 # collision detection
@@ -203,12 +199,10 @@ def crash():
     #if (man.y < (goblin.y + 20)):
     if ((man.y > goblin.y and man.y < (goblin.y + 30)) or ((man.y + 30) > goblin.y and (man.y + 30) < (goblin.y + 30))):
         if ((man.x > goblin.x and man.x < (goblin.x + 30)) or ((man.x + 30) > goblin.x and (man.x + 30) < (goblin.x + 30))):
-            print('aw')
             man.x = 820
             man.y = 300
             deathCountPlayer = deathCountPlayer + 1
-            print(deathCountPlayer)
-            pygame.time.delay(500)
+            pygame.time.delay(300)
             crashCheck = True
         else:
             crashCheck = False
@@ -234,11 +228,6 @@ def redrawGameWindow():
     if keys[pygame.K_h]:
         win.blit(letter, (260, 0))
     pygame.display.update()
-
-# def timeManagement():
-    #text_time = font.render("time : {}".format(delta_time), True, (0,0,0))
-    #win.blit(text_time, (size[0]-100, 5))
-    # 시간 1초 지나면 그에맞게 screen에 표시하기 이거 그냥 검색하면 나올것
 
 
 # mainloop
@@ -280,7 +269,6 @@ while run:
     now_time = datetime.now()
     delta_time = round((now_time - start_time).total_seconds())
     text_time = font.render("time : {}".format(delta_time), True, (0,0,0))
-    #win.blit(text_time, (100, 5))
 
     keys = pygame.key.get_pressed()
 
@@ -324,11 +312,8 @@ while run:
         man.walkCount = 0
 
     if crashCheck == True:
-
-        #pygame.time.delay(1000)
         crashCheck = False  
 
-    # timeManagement()
     crash()
     redrawGameWindow()
 
