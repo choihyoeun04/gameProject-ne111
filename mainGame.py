@@ -182,7 +182,7 @@ class enemy(object):
                 self.health = 30
                 self.maxhealth = 30
                 self.y = 450
-                self.vel = 12
+                self.vel = 13
                 self.visible = True
                 self.phaseLeft = 1
             else:
