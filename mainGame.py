@@ -1,3 +1,5 @@
+#HC = Hyoeun Choi HL = Hazel Lee
+
 #HC Import modules and setup the basic files needed
 import pygame
 import sys
