@@ -1,3 +1,4 @@
+#HC Import modules and setup the basic files needed
 import pygame
 import sys
 import time
@@ -5,19 +6,19 @@ from datetime import datetime
 
 pygame.init()
 
-# Initialize game screen size
+#HC Initialize game screen size
 win = pygame.display.set_mode((1280, 720))
 
-# Game name
+#HC Game name
 pygame.display.set_caption("Protect Gardener")
 
-# Animations for player - while walking
+#HC Animations for player - while walking
 walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png'), pygame.image.load(
     'R5.png'), pygame.image.load('R6.png'), pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png')]
 walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png'), pygame.image.load(
     'L5.png'), pygame.image.load('L6.png'), pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png')]
 
-# Load backgrounds and musics
+#HC Load backgrounds and musics
 bg = pygame.image.load('bg.png')
 bulletSound = pygame.mixer.Sound("bullet.mp3")
 hitSound = pygame.mixer.Sound("hit.wav")
@@ -28,19 +29,18 @@ phase_text = pygame.image.load("phaseLeft.png")
 font = pygame.font.Font("consolaz.ttf", 30)
 clearImage = pygame.image.load('clearImage.png')
 
-# Timing for game
+#HL Timing for game
 clock = pygame.time.Clock()
 
-# Settings for music
+#HC Settings for music
 pygame.mixer.init()
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.4)
 
-# Class that organized player's data
-
+#HC Class that organized player's data
 
 class player(object):
-    # Initializing variables required for player
+    #HC Initializing variables required for player
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
@@ -52,7 +52,8 @@ class player(object):
         self.walkCount = 0
         self.standing = True
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
-    # Animating player's moves
+
+    #HC Animating player's moves
 
     def draw(self, win):
         if self.walkCount + 1 >= 27:
@@ -74,7 +75,7 @@ class player(object):
         pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
 
-# Class for bullets
+#HC Class for bullets
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
         self.x = x
@@ -88,15 +89,15 @@ class projectile(object):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
 
 
-# Class for enemy
+#HC and HL Class for enemy
 class enemy(object):
-    # change enemy's picture
+    #HC change enemy's picture
     walkRight = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load(
         'E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
     walkLeft = [pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load(
         'E6.png'), pygame.image.load('E1.png'), pygame.image.load('E2.png'), pygame.image.load('E3.png'), pygame.image.load('E4.png'), pygame.image.load('E5.png'), pygame.image.load('E6.png')]
 
-    # Enemy's default setting
+    #HC Enemy's default setting
 
     def __init__(self, x, y, width, height, end):
         self.x = x
@@ -114,11 +115,11 @@ class enemy(object):
         self.deathcount = 0
         self.phaseLeft = 4
 
-    # What enemy does in certain conditions
+    #HC What enemy does in certain conditions
     def draw(self, win):
         self.move()
         for flower in enemies[:]:
-            # While visible (not dead)
+            #HC While visible (not dead)
             if self.visible == True:
                 if self.walkCount + 1 >= 33:
                     self.walkCount = 0
@@ -132,12 +133,12 @@ class enemy(object):
                     self.walkCount += 1
                 self.hitbox = (self.x + 17, self.y + 2, 31, 57)
                 pygame.draw.rect(
-                    win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, (5*self.maxhealth), 10))  # HEALTH Bars
+                    win, (255, 0, 0), (self.hitbox[0], self.hitbox[1] - 20, (5*self.maxhealth), 10))  #HC HEALTH Bars
                 pygame.draw.rect(win, (0, 128, 0), (self.hitbox[0], self.hitbox[1] - 20, ((
-                    5*self.maxhealth)) - (5 * (self.maxhealth - self.health)), 10))  # Health bars
+                    5*self.maxhealth)) - (5 * (self.maxhealth - self.health)), 10))  #HC Health bars
 
 
-    # Enemy's movement
+    #HC Enemy's movement
     def move(self):
         if self.vel > 0:
             if self.x + self.vel < self.path[1]:
@@ -152,7 +153,7 @@ class enemy(object):
                 self.vel = self.vel * -1
                 self.walkCount = 0
 
-    # If enemy got hit
+    #HC If enemy got hit
     def hit(self):
         hitSound.play()
         if self.health > 2:
@@ -191,13 +192,11 @@ class enemy(object):
                 
 
 
-# define a function for
-# collision detection
+#HC define a function for collision detection
 def crash():
     global deathCountPlayer
     global crashCheck
-# check conditions
-    #if (man.y < (goblin.y + 20)):
+#HC check conditions for collision
     if ((man.y > goblin.y and man.y < (goblin.y + 30)) or ((man.y + 30) > goblin.y and (man.y + 30) < (goblin.y + 30))):
         if ((man.x > goblin.x and man.x < (goblin.x + 30)) or ((man.x + 30) > goblin.x and (man.x + 30) < (goblin.x + 30))):
             man.x = 820
@@ -212,7 +211,7 @@ def crash():
 
 
 
-# Update game's window
+#HC and HL Update game's window
 def redrawGameWindow():
     displayDeath = font.render("Death Count : {}".format(deathCountPlayer), True, (255,0,0))
     displayPhase = font.render("{}".format(goblin.phaseLeft), True, (255,0,0))
@@ -237,7 +236,7 @@ def redrawGameWindow():
 
 
 
-# mainloop
+#HC and HL mainloop for game
 man = player(400, 410, 64, 64)
 goblin = enemy(320, 550, 64, 64, 820)
 shootLoop = 0
@@ -248,7 +247,7 @@ enemies.append(goblin)
 crashCheck = False
 deathCountPlayer = 0
 
-
+#HL and HC 
 start_time = datetime.now()
 while run:
     clock.tick(27)
@@ -273,12 +272,13 @@ while run:
         else:
             bullets.pop(bullets.index(bullet))
 
+#HL checking time for game
     now_time = datetime.now()
     delta_time = round((now_time - start_time).total_seconds())
     text_time = font.render("time : {}".format(delta_time), True, (0,0,0))
 
     keys = pygame.key.get_pressed()
-
+#HC when attacking
     if keys[pygame.K_SPACE] and shootLoop == 0:
         bulletSound.play()
         if man.left:
@@ -291,14 +291,14 @@ while run:
                            round(man.y + man.height//2), 6, (0, 0, 0), facing))
 
         shootLoop = 1
-
+#HC moving with keys pressed
     if keys[pygame.K_LEFT] and man.x > man.vel and man.x > 310:
         man.x -= man.vel
         man.left = True
         man.right = False
         man.standing = False
 
-    # game boundary
+    #HC game boundary
     elif keys[pygame.K_RIGHT] and man.x < 950 - man.width - man.vel:
         man.x += man.vel
         man.right = True
